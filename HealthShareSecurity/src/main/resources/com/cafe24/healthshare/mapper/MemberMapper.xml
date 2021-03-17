@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.healthshare.mapper.MemberMapper">
+	
+	<resultMap type="com.cafe24.healthshare.dto.User" id="memberMap">
+		<id 		property="username" 	column="username" />
+		<result 	property="username" 	column="username"/>
+		<result 	property="password" 	column="password"/>
+		<result 	property="enabled" 		column="enabled"/>
+		<collection property="authList"	resultMap="authMap"/>
+	</resultMap>
+	<resultMap type="com.cafe24.healthshare.dto.Auth" id="authMap">
+		<result property="username" column="username"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+	
+	<insert id="insertUser">
+		INSERT INTO users (username, password)values(#{username},#{password})
+	</insert>
+	<insert id="insertAuth">
+		INSERT INTO authorities (username) values(#{username})
+	</insert>
+	<insert id="insertUserInfo">
+		INSERT INTO userinfo 
+					(username	,  email,   ip,   interest,   sns,   zonecode,   address1,   address2)
+			  VALUES(#{username},#{email},#{ip},#{interest},#{sns},#{zonecode},#{address1},#{address2})
+	</insert>
+	<select id="read_security" resultMap="memberMap">
+		SELECT	m.username,m.password,m.enabled,a.authority
+		FROM	users m  LEFT OUTER JOIN authorities a on m.username=a.username
+		WHERE	m.username=#{username}
+	</select>
+	<update id="updateUserInfo">
+		UPDATE userinfo
+		   SET email = ${email}, interest = ${interest}, sns= ${sns}, zonecode = ${zonecode},
+		   	   address1 = ${address1}, address2 = ${address2}
+		 WHERE username = ${username} 
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM users WHERE username=${username} and password ${password}
+	</delete>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="successHandler" class="com.cafe24.healthshare.security.LoginSuccessHandler"></bean>
+	<bean id="deniedHandler" class="com.cafe24.healthshare.security.DeniedHander"></bean>
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<bean id="customUserDetails" class="com.cafe24.healthshare.security.CustomUserDetailsService"></bean>
+	<!-- <bean id="customAuthenticationProvider" class="com.company.security.security.CustomAuthenticationProvider"></bean> -->
+	<bean id="loginFailure" class="com.cafe24.healthshare.security.LoginFailureHandler"></bean>
+	
+	<security:http>
+		<security:intercept-url pattern="/security/all" access="permitAll" />
+		<security:intercept-url pattern="/security/member" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/security/admin" access="hasRole('ROLE_ADMIN')" />
+		<security:access-denied-handler ref="deniedHandler"/>
+		<security:form-login login-page="/security/mylogin" authentication-success-handler-ref="successHandler" authentication-failure-handler-ref="loginFailure"/>
+	</security:http>
+   
+    <security:authentication-manager>
+		<!-- <security:authentication-provider ref="customAuthenticationProvider"/> -->
+		<security:authentication-provider user-service-ref="customUserDetails">
+			<security:password-encoder ref="bCryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

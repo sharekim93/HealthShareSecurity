@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Console Log Setting -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	   <encoder>
+	       <pattern>[%d{yyyy/MM/dd HH:mm:ss}] %-5level| %-25.25logger{0} | %msg%n</pattern>
+	   </encoder>
+	</appender>
+
+  	<!-- Application Loggers -->
+	<logger name="com.cafe24.sharekim93" level="info"/>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core" level="info"/>	
+	<logger name="org.springframework.beans" level="info"/>
+	<logger name="org.springframework.context" level="info"/>
+	<logger name="org.springframework.web" level="info"/>
+  
+  	<!-- mybatis query log setting -->
+	<logger name="jdbc" level="OFF" />
+	<logger name="jdbc.sqlonly" level="OFF" />
+	<logger name="jdbc.sqltiming" level="info" />
+	<logger name="jdbc.audit" level="OFF" />
+	<logger name="jdbc.resultset" level="OFF" />
+	<logger name="jdbc.resultsettable" level="info" />
+	<logger name="jdbc.connection" level="OFF" />
+ 
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+
