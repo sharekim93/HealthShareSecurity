@@ -5,17 +5,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.cafe24.healthshare.dto.User;
-import com.cafe24.healthshare.mapper.MemberMapper;
+import com.cafe24.healthshare.mapper.UserMapper;
+import com.cafe24.healthshare.vo.User;
 
 public class CustomUserDetailsService implements UserDetailsService{
 
 	@Autowired
-	private MemberMapper mapper;
+	private UserMapper mapper;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = mapper.read_security(username);
+		User user = mapper.authenticate(username);
 		if(user == null) {throw new UsernameNotFoundException(username);}
 		return user;
 	}

@@ -8,7 +8,6 @@
 	<bean id="deniedHandler" class="com.cafe24.healthshare.security.DeniedHander"></bean>
 	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserDetails" class="com.cafe24.healthshare.security.CustomUserDetailsService"></bean>
-	<!-- <bean id="customAuthenticationProvider" class="com.company.security.security.CustomAuthenticationProvider"></bean> -->
 	<bean id="loginFailure" class="com.cafe24.healthshare.security.LoginFailureHandler"></bean>
 	
 	<security:http>
@@ -20,7 +19,6 @@
 	</security:http>
    
     <security:authentication-manager>
-		<!-- <security:authentication-provider ref="customAuthenticationProvider"/> -->
 		<security:authentication-provider user-service-ref="customUserDetails">
 			<security:password-encoder ref="bCryptPasswordEncoder"/>
 		</security:authentication-provider>

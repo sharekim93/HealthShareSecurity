@@ -24,11 +24,11 @@
 				</div>
 				<div class="form-group">
 					<label for="mname">(*) 이름</label>
-					<input type="text" id="mname" name="mname" class="form-control" placeholder="이름을 입력하세요">
+					<input type="text" id="mname" name="nickname" class="form-control" placeholder="이름을 입력하세요">
 				</div>
 				<div class="form-group">
 					<label for="mpass">(*) 비밀번호</label>
-					<input type="password" id="mpass" name="mpass" class="form-control" placeholder="비밀번호를 입력하세요">
+					<input type="password" id="mpass" name="password" class="form-control" placeholder="비밀번호를 입력하세요">
 				</div>
 				<div class="form-group">
 					<label for="mpass_chk">(*) 비밀번호 확인</label>

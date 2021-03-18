@@ -7,8 +7,8 @@
 			<legend>비밀번호수정</legend>
 			<table class="table table-striped">
 				<tbody>
-					<tr><td>이전 비밀번호</td><td><input type="password" name="mpass" id="pastPass"></td></tr>
-					<tr><td>새 비밀번호</td><td><input type="password" name="newpass" id="newPass"></td></tr>
+					<tr><td>이전 비밀번호</td><td><input type="password" name="old" id="pastPass"></td></tr>
+					<tr><td>새 비밀번호</td><td><input type="password" name="new_" id="newPass"></td></tr>
 					<tr><td>새 비밀번호 확인</td><td><input type="password" id="newPassChk"></td></tr>
 				</tbody>
 			</table>

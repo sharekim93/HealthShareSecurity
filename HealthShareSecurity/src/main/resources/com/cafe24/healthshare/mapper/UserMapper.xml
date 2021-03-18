@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.healthshare.mapper.UserMapper">
+	
+	<resultMap type="com.cafe24.healthshare.vo.User" id="memberMap">
+		<id 		property="username" 	column="username" />
+		<result 	property="username" 	column="username"/>
+		<result 	property="password" 	column="password"/>
+		<result 	property="enabled" 		column="enabled"/>
+		<collection property="authList"	resultMap="authMap"/>
+	</resultMap>
+	<resultMap type="com.cafe24.healthshare.vo.Auth" id="authMap">
+		<result property="username" column="username"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+	<resultMap type="com.cafe24.healthshare.vo.UserInfo" id="userinfo">
+		<id 		property="username" 	column="username" />
+		<result 	property="username" 	column="username"/>
+		<result 	property="nickname" 	column="nickname"/>
+		<result 	property="email" 		column="email"/>
+		<result 	property="regdate" 		column="regdate"/>
+		<result 	property="interest" 	column="interest"/>
+		<result 	property="sns" 			column="sns"/>
+		<result 	property="zonecode" 	column="zonecode"/>
+		<result 	property="address1"		column="address1"/>
+		<result 	property="address2" 	column="address2"/>
+	</resultMap>
+	
+	<insert id="insertUser">
+		INSERT INTO users (username, password)values(#{username},#{password})
+	</insert>
+	<insert id="insertAuth">
+		INSERT INTO authorities (username) values(#{username})
+	</insert>
+	<insert id="insertUserInfo">
+		INSERT INTO userinfo 
+				   (  username,    nickname,   email,   ip,   interest,   sns,   zonecode,   address1,   address2)
+			 VALUES(#{username},#{nickname},#{email},#{ip},#{interest},#{sns},#{zonecode},#{address1},#{address2})
+	</insert>
+	<select id="authenticate" resultMap="memberMap">
+		SELECT	m.username,m.password,m.enabled,a.authority
+		FROM	users m  LEFT OUTER JOIN authorities a on m.username=a.username
+		WHERE	m.username=#{username}
+	</select>
+	<select id="getUserInfo" resultMap="userinfo">
+		SELECT	username, nickname,  email,  interest,   sns,   zonecode,   address1,   address2
+		FROM	userinfo m
+		WHERE	m.username = #{username}
+	</select>
+	
+	<select id="validateUser" resultType="integer">
+		SELECT	count(*)
+		FROM	users
+		WHERE	username = #{username}
+	</select>
+	
+	<update id="updateUserInfo">
+		UPDATE userinfo
+		   SET email = #{email}, interest = #{interest}, sns= #{sns}, zonecode = #{zonecode},
+		   	   address1 = #{address1}, address2 = #{address2}
+		 WHERE username = #{username} 
+	</update>
+	
+	<update id="updatePassword">
+		UPDATE users
+		   SET password=#{password}
+		 WHERE username=#{username}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM users WHERE username=#{username}
+	</delete>
+</mapper>

@@ -1,4 +1,4 @@
-package com.cafe24.healthshare.dto;
+package com.cafe24.healthshare.vo;
 
 import java.util.ArrayList;
 import java.util.Collection;

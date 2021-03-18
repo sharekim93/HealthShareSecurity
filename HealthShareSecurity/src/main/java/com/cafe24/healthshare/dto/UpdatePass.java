@@ -3,7 +3,8 @@ package com.cafe24.healthshare.dto;
 import lombok.Data;
 
 @Data
-public class Auth {
+public class UpdatePass {
 	private String username;
-	private String authority;
+	private String old;
+	private String new_;
 }

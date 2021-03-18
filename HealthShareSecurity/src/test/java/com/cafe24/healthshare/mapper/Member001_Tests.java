@@ -29,16 +29,16 @@ public class Member001_Tests {
   @Setter(onMethod_ = @Autowired)
   private DataSource ds;
  
-  
+  @Test
   public void testInsertMember() {
 	  Connection conn = null;   PreparedStatement pstmt = null;
 	  try {
 	      conn  = ds.getConnection();
-	      pstmt =  conn.prepareStatement("insert into users (username, password ) values (?,? )");
+	      pstmt =  conn.prepareStatement("insert into users (userid, userpw ) values (?,? )");
 //	      pstmt.setString(1,"member");
 //	      pstmt.setString(2, pwencoder.encode("member"));
-	      pstmt.setString(1,"user");
-	      pstmt.setString(2, pwencoder.encode("user"));
+	      pstmt.setString(1,"admin");
+	      pstmt.setString(2, pwencoder.encode("admin"));
 	      
 	      pstmt.executeUpdate();
       }catch(Exception e) {
@@ -51,15 +51,16 @@ public class Member001_Tests {
     } 
  
   
+  @Test
   public void testInsertAuth() {
     Connection conn = null;   PreparedStatement pstmt = null;
 	  try {
 	      conn  = ds.getConnection();
-	      pstmt =  conn.prepareStatement("insert into authorities (username, authority) values (?,?)");
+	      pstmt =  conn.prepareStatement("insert into uauthorities (userid, auth) values (?,?)");
 //	      pstmt.setString(1,"member");
 //	      pstmt.setString(2,"ROLE_MEMBER");
-	      pstmt.setString(1,"user");
-	      pstmt.setString(2,"ROLE_MEMBER");
+	      pstmt.setString(1,"admin");
+	      pstmt.setString(2,"ROLE_ADMIN");
 	      pstmt.executeUpdate();
     }catch(Exception e) {
       e.printStackTrace();
