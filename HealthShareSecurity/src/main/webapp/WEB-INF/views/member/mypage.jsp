@@ -28,23 +28,25 @@
 		<table class="table table-striped">
 		<caption style="margin-left:0px;">회원정보</caption>
 		<tbody>
-			<tr><th scope="row">아이디</th><td>${member.mid}</td></tr>
-			<tr><th scope="row">이름</th><td>${member.mname}</td></tr>
-			<tr><th scope="row">이메일</th><td>${member.memail}</td></tr>
-			<tr><th scope="row">주소</th><td>${member.address1}&nbsp;${member.address2}</td></tr>
-			<tr><th scope="row">가입일자</th><td>${member.mdate}</td></tr>
-			<tr><th scope="row">관심언어</th><td>${member.minterest}</td></tr>
-			<tr><th scope="row">SNS사용여부</th><td>${member.msns}</td></tr>
+			<c:set var="u" value="${user}"></c:set>
+			<tr><th scope="row">아이디</th><td>${u.username}</td></tr>
+			<tr><th scope="row">이름</th><td>${u.nickname}</td></tr>
+			<tr><th scope="row">이메일</th><td>${u.email}</td></tr>
+			<tr><th scope="row">주소</th><td>${u.address1}&nbsp;${u.address2}</td></tr>
+			<tr><th scope="row">가입일자</th><td>${u.regdate}</td></tr>
+			<tr><th scope="row">관심언어</th><td>${empty u.interest? '-':u.interest}</td></tr>
+			<tr><th scope="row">SNS사용여부</th><td>${empty u.sns? '-':u.sns}</td></tr>
 		</tbody>
 		</table>
 		<div class="text-center">
-			<input type="button" value="회원정보수정" class="btn btn-default" onclick="location.href='goEditPage.do'" style="margin-top:10px;background-color:#337ab7;color:white;">
-			<input type="button" value="비밀번호수정" class="btn btn-default" onclick="location.href='goPassPage.do'" style="margin-top:10px;background-color:#337ab7;color:white;">
-			<input type="button" value="탈퇴"		  id="withdrawal"	name="edit" class="btn btn-default" style="margin-top:10px;background-color:#337ab7;color:white;">
+			<input type="button" value="회원정보수정" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/member/editInfo'" style="margin-top:10px;background-color:#337ab7;color:white;">
+			<input type="button" value="비밀번호수정" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/member/editPass'" style="margin-top:10px;background-color:#337ab7;color:white;">
+			<input type="button" value="탈퇴"		  id="withdrawal" class="btn btn-default" style="margin-top:10px;background-color:#337ab7;color:white;">
 		</div>
-		<form action="WithdrawAction.do" id="delete" method="post">
-			<input type="hidden" name="mpass" id="mpass" value="">
-			<input type="hidden" name="edit" id="edit" value="">
+		<form action="${pageContext.request.contextPath}/member/delete" id="delete" method="post">
+			<input type="hidden" name="username" id="username" value="${u.username}">
+			<input type="hidden" name="password" id="password" value="">
+			<input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"  />
 		</form>
 	</div>
 </body>
@@ -54,7 +56,7 @@
 			if(!confirm("정말 탈퇴하시겠습니까?")){return false;}
 			let pass = prompt("당신의 비밀번호를 입력해주세요");
 			if(pass==null){return false;}
-			$("#mpass").attr("value",pass);
+			$("#password").attr("value",pass);
 			$("#delete").submit();
 		})
 	});

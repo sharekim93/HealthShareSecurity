@@ -2,7 +2,7 @@
 <%@include file="../inc/header.jsp" %>
 <body>
 	<div class="container panel" id="main_panel">
-		<form class="form-group" action="editPassAction.do" method="post">
+		<form class="form-group" action="${pageContext.request.contextPath}/member/editPass" method="post">
 			<fieldset>
 			<legend>비밀번호수정</legend>
 			<table class="table table-striped">
@@ -12,8 +12,12 @@
 					<tr><td>새 비밀번호 확인</td><td><input type="password" id="newPassChk"></td></tr>
 				</tbody>
 			</table>
+			<div class="form-group">
+				<input type="hidden" name="username" value='<sec:authentication property="principal.username"/>'/>
+				<input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"  />
+			</div>
 			<div class="text-center">
-				<a href="mypage.do" id="before" class="btn btn-default" style="background-color:#337ab7;color:white;" >이전</a>
+				<a href="${pageContext.request.contextPath}/member/mypage" id="before" class="btn btn-default" style="background-color:#337ab7;color:white;" >이전</a>
 				<input type="submit" id="submit" value="비밀번호 수정하러 가기" class="btn btn-default" style="background-color:#337ab7;color:white;">
 			</div>
 			</fieldset>
