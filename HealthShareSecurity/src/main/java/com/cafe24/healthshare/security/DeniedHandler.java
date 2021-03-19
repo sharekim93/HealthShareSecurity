@@ -12,13 +12,14 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DeniedHander implements AccessDeniedHandler{
+public class DeniedHandler implements AccessDeniedHandler{
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 		AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		log.error("....................DeniedHandler :Access Denied Handler");
+		log.info(accessDeniedException.getMessage());
 		log.error("......Redirect");
-		response.sendRedirect(request.getContextPath()+"/security/accessError");
+		response.sendRedirect(request.getContextPath()+"/member/accessError");
 	}
 }
