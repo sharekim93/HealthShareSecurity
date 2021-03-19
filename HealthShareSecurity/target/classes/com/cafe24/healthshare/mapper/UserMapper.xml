@@ -45,7 +45,7 @@
 		WHERE	m.username=#{username}
 	</select>
 	<select id="getUserInfo" resultMap="userinfo">
-		SELECT	username, nickname,  email,  interest,   sns,   zonecode,   address1,   address2
+		SELECT	username, nickname, regdate, email,  interest,   sns,   zonecode,   address1,   address2
 		FROM	userinfo m
 		WHERE	m.username = #{username}
 	</select>
