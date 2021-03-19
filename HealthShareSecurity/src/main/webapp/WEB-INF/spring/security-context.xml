@@ -5,17 +5,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="successHandler" class="com.cafe24.healthshare.security.LoginSuccessHandler"></bean>
-	<bean id="deniedHandler" class="com.cafe24.healthshare.security.DeniedHander"></bean>
+	<bean id="deniedHandler" class="com.cafe24.healthshare.security.DeniedHandler"></bean>
 	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserDetails" class="com.cafe24.healthshare.security.CustomUserDetailsService"></bean>
 	<bean id="loginFailure" class="com.cafe24.healthshare.security.LoginFailureHandler"></bean>
 	
 	<security:http>
-		<security:intercept-url pattern="/security/all" access="permitAll" />
-		<security:intercept-url pattern="/security/member" access="hasRole('ROLE_MEMBER')" />
-		<security:intercept-url pattern="/security/admin" access="hasRole('ROLE_ADMIN')" />
 		<security:access-denied-handler ref="deniedHandler"/>
-		<security:form-login login-page="/security/mylogin" authentication-success-handler-ref="successHandler" authentication-failure-handler-ref="loginFailure"/>
+		<security:form-login login-page="/member/login" authentication-success-handler-ref="successHandler" authentication-failure-handler-ref="loginFailure"/>
+		<security:logout logout-url="/member/logout" logout-success-url="/member/login"/>
 	</security:http>
    
     <security:authentication-manager>
