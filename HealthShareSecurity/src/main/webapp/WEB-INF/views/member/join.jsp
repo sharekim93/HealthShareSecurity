@@ -76,19 +76,19 @@
 				<div class="form-group">
 				<h5>관심 언어 선택</h5>
 					<p class="text-left">
-						<input type="checkbox" id="java" name="minterest" value="java">
+						<input type="checkbox" id="java" name="interest" value="JAVA">
 						<label for="java">자바</label>
-						<input type="checkbox" id="jsp" name="minterest" value="jsp">
+						<input type="checkbox" id="jsp" name="interest" value="JSP">
 						<label for="jsp">JSP</label>
-						<input type="checkbox" id="sql" name="minterest" value="sql">
+						<input type="checkbox" id="sql" name="interest" value="SQL">
 						<label for="sql">SQL</label>
-						<input type="checkbox" id="python" name="minterest" value="python">
+						<input type="checkbox" id="python" name="interest" value="PYTHON">
 						<label for="python">Python</label>
 					</p>
 				</div>
 				<div class="form-group">
 				<h5>SNS 사용여부</h5>
-					<select id="mselect" name="mselect">
+					<select id="mselect" name="sns">
 						<option value = "-">---선택하세요---</option>
 						<option value = "y">사용</option>		
 						<option value = "n">미사용</option>
@@ -99,6 +99,9 @@
 				</div>
 				<div class="form-group">
 				<a class="btn btn-default form-control" href="javascript:history.go(-1);">이전</a>
+				</div>
+				<div class="form-group">
+					<input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"  />
 				</div>
 			</fieldset>
 		</form>
@@ -118,7 +121,7 @@
 			if($("#zonecode").val()==""){alert("주소를 입력해주세요");$("#postcode").focus();return false;}
 			if($("#address2").val()==""){alert("상세 주소를 입력해주세요");$("#address2").focus();return false;}
 			if($("#memail").val()==""){alert("이메일을 확인해주세요");$("#memail").focus();return false;}
-			if(!$("input:checkbox[name='fourteen']:checked").length){alert("만 14세 이상만 가입이 가능합니다.");return false;}
+			if(!$("input:checkbox[id='fourteen']:checked").length){alert("만 14세 이상만 가입이 가능합니다.");return false;}
 			if(usableId<0){alert('아이디 확인 후 가입 가능합니다.');$("#checkId").focus();return false;}
 		});
 		
