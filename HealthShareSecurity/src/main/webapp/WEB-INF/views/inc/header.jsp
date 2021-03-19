@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -471,26 +472,21 @@
 </nav>
 <nav class="navbar lnb">
   <div class="container-fluid">
-<!--     <ul class="nav navbar-nav">
-      <li><a href="#">전체</a></li>
-      <li><a href="#">나신사1</a></li>
-      <li><a href="#">나신사2</a></li>
-      <li><a href="#">나신사3</a></li>
-      <li><a href="#">나신사4</a></li>
-    </ul> -->
 	<ul class="nav navbar-nav navbar-right">
-	<c:choose>
-		<c:when test="${!empty sessionScope.id}">
-			<li><a href='mypage.do'><strong>${sessionScope.id}님의 마이페이지</strong></a></li>
-			<li><a href='logout.do'><strong>로그아웃</strong></a></li>
+		<sec:authorize access="isAuthenticated()">
+			<li><a href='${pageContext.request.contextPath}/member/mypage'><strong><sec:authentication property="principal.username"/>님의 마이페이지</strong></a></li>
+			<li>
+				<a href="#" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
+				<form id="logout-form" action='<c:url value='/member/logout'/>' method="POST">
+				   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+				</form>
+			</li>
+		</sec:authorize>
+		<sec:authorize access="isAnonymous()">
+			<li><a href='${pageContext.request.contextPath}/member/login'><strong>로그인</strong></a></li>
+			<li><a href='${pageContext.request.contextPath}/member/joinAgree'><strong>회원가입</strong></a></li>
+		</sec:authorize>
 			<li><a href="index.cs"><strong>고객센터</strong></a></li>
-		</c:when>
-		<c:otherwise>
-			<li><a href='main.do'><strong>로그인</strong></a></li>
-			<li><a href='join_agree.do'><strong>회원가입</strong></a></li>
-			<li><a href="index.cs"><strong>고객센터</strong></a></li>
-		</c:otherwise>
-	</c:choose>
 	</ul>
   </div>
 </nav> 
