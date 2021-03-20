@@ -90,8 +90,8 @@
 				<h5>SNS 사용여부</h5>
 					<select id="mselect" name="sns">
 						<option value = "-">---선택하세요---</option>
-						<option value = "y">사용</option>		
-						<option value = "n">미사용</option>
+						<option value = "Y">사용</option>		
+						<option value = "N">미사용</option>
 					</select>
 				</div>
 				<div class="form-group">
