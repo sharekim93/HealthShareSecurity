@@ -10,6 +10,8 @@
 	<bean id="customUserDetails" class="com.cafe24.healthshare.security.CustomUserDetailsService"></bean>
 	<bean id="loginFailure" class="com.cafe24.healthshare.security.LoginFailureHandler"></bean>
 	
+	<security:http pattern="/resources/**" security="none" />
+	
 	<security:http>
 		<security:access-denied-handler ref="deniedHandler"/>
 		<security:form-login login-page="/member/login" authentication-success-handler-ref="successHandler" authentication-failure-handler-ref="loginFailure"/>

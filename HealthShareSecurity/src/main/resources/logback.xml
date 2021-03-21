@@ -9,7 +9,6 @@
 
   	<!-- Application Loggers -->
 	<logger name="com.cafe24.sharekim93" level="info"/>
-	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core" level="info"/>	
 	<logger name="org.springframework.beans" level="info"/>

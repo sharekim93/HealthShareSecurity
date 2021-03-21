@@ -3,6 +3,7 @@ package com.cafe24.healthshare.controller;
 import java.net.UnknownHostException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/member/")
+@EnableAspectJAutoProxy
 @Slf4j
 public class UserController {
 	
@@ -34,20 +36,17 @@ public class UserController {
 		model.addAttribute("msg","AccessDemone"); return "security/accessError";
 	}
 	
-	@GetMapping("login") public void login() {log.info("...........login.........");}	
-	@GetMapping("joinAgree") public void joinAgree() {log.info(".....Go Join Agree Page......");}	
-	@GetMapping("join") public void join() {log.info(".....Go Join Page.....");}
+	@GetMapping("login") public void login() {}	
+	@GetMapping("joinAgree") public void joinAgree() {}	
+	@GetMapping("join") public void join() {}
 	
 	@GetMapping("idCheck")
 	@ResponseBody
 	public String idCheck(@RequestParam String userid) {
-		log.info(".......check id duplicated....");
-		return String.valueOf(service.validateUser(userid));
-	}
+		return String.valueOf(service.validateUser(userid)); }
 	
 	@PostMapping("join")
 	public String joinAction(Join join,Model model) throws UnknownHostException {
-		log.info(".....Join Action.....");
 		service.joinUser(join);
 		model.addAttribute("info",service.getUserInfo(join.getUsername()));
 		return "/member/join_com";
@@ -55,20 +54,15 @@ public class UserController {
 	
 	@GetMapping("mypage")
 	public void goMypage(Authentication auth,Model model) {
-		log.info("......Go mypage......");
-		model.addAttribute("user",service.getUserInfo(auth.getName()));
-	}
+		model.addAttribute("user",service.getUserInfo(auth.getName())); }
 
 	@GetMapping("editInfo")
 	public void editInfo(Authentication auth,Model model) {
-		log.info("......Go Info Edit page.....");
 		model.addAttribute("user",service.getUserInfo(auth.getName()));
 	}
 
 	@PostMapping("editInfo")
-	public String editAction(UpdateInfo info,Model model) {
-		log.info("....Edit Info Action.....");
-		log.info(info.toString());
+	public String editAction(UpdateInfo info,Model model) {;
 		service.updateUserInfo(info);
 		model.addAttribute("user",service.getUserInfo(info.getUsername()));
 		return "/member/mypage";
@@ -78,20 +72,15 @@ public class UserController {
 	
 	@PostMapping("editPass")
 	public String editPassAction(UpdatePass info,Model model) {
-		log.info("Edit Pass Action");
 		service.updateUserPass(info);
 		model.addAttribute("user",service.getUserInfo(info.getUsername()));
 		return "/member/mypage";
 	}
 	
 	@GetMapping("delete")
-	public void delete() {log.info(".....Go Delete Page.....");}
+	public void delete() {}
 	
 	@PostMapping("delete")
-	public String deleteAction(User user) {
-		log.info(".....Delete Action.....");
-		service.deleteUser(user);
-		return "/member/login";
-	}
-	
+	public String deleteAction(User user) { service.deleteUser(user); return "/member/login"; }
+
 }

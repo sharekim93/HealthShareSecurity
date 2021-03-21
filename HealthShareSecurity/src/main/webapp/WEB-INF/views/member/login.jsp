@@ -35,7 +35,7 @@
 					<input type="submit" class="btn btn-login" value="로그인" id="submit">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=1def83c8f6ac181e4df9db51d15d7f0e&
 							redirect_uri=http://sharekim93.cafe24.com/HealthShare/KakaoLogin&response_type=code">
-					<img src="resources/images/kakao_login_medium_narrow.png"></a>
+					<img src="${pageContext.request.contextPath}/resources/images/kakao_login_medium_narrow.png"></a>
 					<input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"  />
 					</div>
 				</div>

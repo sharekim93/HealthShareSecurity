@@ -20,6 +20,6 @@ public class DeniedHandler implements AccessDeniedHandler{
 		log.error("....................DeniedHandler :Access Denied Handler");
 		log.info(accessDeniedException.getMessage());
 		log.error("......Redirect");
-		response.sendRedirect(request.getContextPath()+"/member/accessError");
+		response.sendRedirect(request.getContextPath()+"/accessError");
 	}
 }
