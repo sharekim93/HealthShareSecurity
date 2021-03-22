@@ -62,9 +62,12 @@ public class Member002_Mapper {
 	public void read_security() {
 		log.info(mapper.authenticate("user1").toString());
 	}
-	
-
 	@Test
+	public void kakaoLogin() {
+		log.info(mapper.authenticate("a").toString());
+	}
+
+	
 	public void getUserInfo() {
 		log.info(mapper.getUserInfo("user1").toString());
 	}

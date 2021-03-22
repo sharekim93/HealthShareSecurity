@@ -9,7 +9,8 @@
 		<result 	property="username" 	column="username"/>
 		<result 	property="password" 	column="password"/>
 		<result 	property="enabled" 		column="enabled"/>
-		<collection property="authList"	resultMap="authMap"/>
+		<result 	property="kakaoid" 		column="kakao_id"/>
+		<collection property="authList"		resultMap="authMap"/>
 	</resultMap>
 	<resultMap type="com.cafe24.healthshare.vo.Auth" id="authMap">
 		<result property="username" column="username"/>
@@ -40,8 +41,9 @@
 			 VALUES(#{username},#{nickname},#{email},#{ip},#{interest},#{sns},#{zonecode},#{address1},#{address2})
 	</insert>
 	<select id="authenticate" resultMap="memberMap">
-		SELECT	m.username,m.password,m.enabled,a.authority
+		SELECT	m.username,m.password,m.enabled,a.authority,b.kakao_id
 		FROM	users m  LEFT OUTER JOIN authorities a on m.username=a.username
+						 LEFT OUTER JOIN user_sns b on m.username=b.username
 		WHERE	m.username=#{username}
 	</select>
 	<select id="getUserInfo" resultMap="userinfo">
