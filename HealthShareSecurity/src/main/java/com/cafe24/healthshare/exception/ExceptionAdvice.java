@@ -14,10 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ExceptionAdvice {
 	
 	@ExceptionHandler(Exception.class)
-	public String Exception(Exception e, Model m){
-		log.error("................Exception..............."+e.getMessage());
-		m.addAttribute("exception",e);
-		log.error("................Model " +m);		
+	public String Exception(Exception e){
+		log.error("................Exception..............."+e);
 		return "inc/error500";
 	}
 	
