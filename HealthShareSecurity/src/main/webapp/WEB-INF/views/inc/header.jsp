@@ -290,8 +290,8 @@
 <nav class="navbar lnb">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li><a href="#">JSP포트폴리오 바로가기</a></li>
-      <li><a href="#">SPRING 포트폴리오 바로가기</a></li>
+      <li><a href="http://sharekim93.cafe24.com/HealthShare">JSP포트폴리오 바로가기</a></li>
+      <li><a href="http://sharekim93.cafe24.com/HealthShareSecurity">SPRING 포트폴리오 바로가기</a></li>
     </ul> 
 	<ul class="nav navbar-nav navbar-right">
 		<sec:authorize access="isAuthenticated()">
