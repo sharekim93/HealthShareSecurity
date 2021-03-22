@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cafe24.healthshare.dto.Join;
 import com.cafe24.healthshare.dto.UpdateInfo;
@@ -33,10 +34,13 @@ public class UserController {
 	
 	@GetMapping("accessError")
 	public String accessError(AuthenticationSuccessHandler auth,Model model) {
-		model.addAttribute("msg","AccessDemone"); return "security/accessError";
+		model.addAttribute("msg","AccessDemone"); return "inc/accessError";
 	}
 	
-	@GetMapping("login") public void login() {}	
+	@GetMapping("login") public String login(Authentication auth) {
+		if(auth!=null) {return "redirect:/member/mypage";}
+		return "/member/login";
+	}	
 	@GetMapping("joinAgree") public void joinAgree() {}	
 	@GetMapping("join") public void join() {}
 	
@@ -82,5 +86,12 @@ public class UserController {
 	
 	@PostMapping("delete")
 	public String deleteAction(User user) { service.deleteUser(user); return "/member/login"; }
+	
+	@GetMapping("loginFail")
+	public String loginFail(RedirectAttributes rttr) {
+		String result = "아이디와 비밀번호를 확인하세요";
+		rttr.addFlashAttribute("result",result);
+		return "redirect:/member/login";
+	}
 
 }
