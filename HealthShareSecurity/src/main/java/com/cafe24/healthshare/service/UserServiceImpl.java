@@ -1,8 +1,10 @@
 package com.cafe24.healthshare.service;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,9 +16,11 @@ import com.cafe24.healthshare.dto.Join;
 import com.cafe24.healthshare.dto.UpdateInfo;
 import com.cafe24.healthshare.dto.UpdatePass;
 import com.cafe24.healthshare.mapper.UserMapper;
+import com.cafe24.healthshare.util.KakaoLogin;
 import com.cafe24.healthshare.vo.Auth;
 import com.cafe24.healthshare.vo.User;
 import com.cafe24.healthshare.vo.UserInfo;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.extern.slf4j.Slf4j;
 @Service
@@ -34,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public int joinUser(Join join) throws UnknownHostException {
+	public int joinUser(Join join){
 		User user = new User();
 		Auth auth = new Auth();
 		UserInfo userinfo = new UserInfo();
@@ -48,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		userinfo.setUsername(join.getUsername());
 		userinfo.setNickname(join.getNickname());
 		userinfo.setEmail(join.getMemail());
-		userinfo.setIp(InetAddress.getLocalHost().getHostAddress());
+		try { userinfo.setIp(InetAddress.getLocalHost().getHostAddress()); } catch (UnknownHostException e1) { e1.printStackTrace(); }
 		userinfo.setZonecode(join.getZonecode());
 		userinfo.setAddress1(join.getAddress1());
 		userinfo.setAddress2(join.getAddress2());
@@ -62,7 +66,7 @@ public class UserServiceImpl implements UserService {
 			if(result>0) {result = mapper.insertUserInfo(userinfo);} else {throw new Exception("권한생성실패");}
 			if(result<=0) {throw new Exception("유저정보 입력 실패");}
 		} catch (Exception e) {
-			log.error("JoinAction :"+e.getMessage());
+			log.error("JOIN ERROR :\n"+e.getMessage());
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		return result;
@@ -71,6 +75,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInfo getUserInfo(String username) { return mapper.getUserInfo(username); }
 
+	@Override
+	public String getUsernameFromKakao(String code) {
+		
+		String kakaoId="";
+		User user = new User();
+		try {
+			JsonNode accessToken = KakaoLogin.getKakaoAccessToken(code);
+			JsonNode userinfo = KakaoLogin.getKakaoUserInfo(accessToken);
+			kakaoId = userinfo.get("id").asText();
+			user = mapper.authenticate(kakaoId);
+			if(user==null) {return null;};
+			
+		}
+		catch (ClientProtocolException e) { e.printStackTrace(); }
+		catch (IOException e) { e.printStackTrace(); }
+		
+		return user.getUsername();
+	}
+	
 	@Override
 	public int updateUserInfo(UpdateInfo info) { return mapper.updateUserInfo(info); }
 

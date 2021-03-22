@@ -40,7 +40,26 @@ public class UserController {
 	@GetMapping("login") public String login(Authentication auth) {
 		if(auth!=null) {return "redirect:/member/mypage";}
 		return "/member/login";
-	}	
+	}
+	
+	@GetMapping("loginFail")
+	public String loginFail(RedirectAttributes rttr) {
+		String result = "아이디와 비밀번호를 확인하세요";
+		rttr.addFlashAttribute("result",result);
+		return "redirect:/member/login";
+	}
+
+	@GetMapping("KakaoLogin")
+	public String kakaoLogin(@RequestParam String code,RedirectAttributes rttr,Model model) {
+		String username = service.getUsernameFromKakao(code);
+		if(username==null) {
+			rttr.addAttribute("result","카카오로 가입되지 않은 아이디입니다. 가입 후 이용하세요");
+			return "redirect:/member/joinAgree";
+		}
+		model.addAttribute("user",service.getUserInfo(username));
+		return "/member/mypage";
+	}
+	
 	@GetMapping("joinAgree") public void joinAgree() {}	
 	@GetMapping("join") public void join() {}
 	
@@ -50,7 +69,7 @@ public class UserController {
 		return String.valueOf(service.validateUser(userid)); }
 	
 	@PostMapping("join")
-	public String joinAction(Join join,Model model) throws UnknownHostException {
+	public String joinAction(Join join,Model model){
 		service.joinUser(join);
 		model.addAttribute("info",service.getUserInfo(join.getUsername()));
 		return "/member/join_com";
@@ -72,7 +91,7 @@ public class UserController {
 		return "/member/mypage";
 	}
 	
-	@GetMapping("editPass") public void editPass() {log.info("Go Edit Pass page");}
+	@GetMapping("editPass") public void editPass() {}
 	
 	@PostMapping("editPass")
 	public String editPassAction(UpdatePass info,Model model) {
@@ -87,11 +106,4 @@ public class UserController {
 	@PostMapping("delete")
 	public String deleteAction(User user) { service.deleteUser(user); return "/member/login"; }
 	
-	@GetMapping("loginFail")
-	public String loginFail(RedirectAttributes rttr) {
-		String result = "아이디와 비밀번호를 확인하세요";
-		rttr.addFlashAttribute("result",result);
-		return "redirect:/member/login";
-	}
-
 }

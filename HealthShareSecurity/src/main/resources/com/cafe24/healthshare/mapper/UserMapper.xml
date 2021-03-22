@@ -44,7 +44,7 @@
 		SELECT	m.username,m.password,m.enabled,a.authority,b.kakao_id
 		FROM	users m  LEFT OUTER JOIN authorities a on m.username=a.username
 						 LEFT OUTER JOIN user_sns b on m.username=b.username
-		WHERE	m.username=#{username}
+		WHERE	m.username=#{username} or b.kakao_id=#{username}
 	</select>
 	<select id="getUserInfo" resultMap="userinfo">
 		SELECT	username, nickname, regdate, email,  interest,   sns,   zonecode,   address1,   address2

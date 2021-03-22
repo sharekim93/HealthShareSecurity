@@ -15,7 +15,7 @@ public class ExceptionAdvice {
 	
 	@ExceptionHandler(Exception.class)
 	public String Exception(Exception e){
-		log.error("................Exception..............."+e);
+		log.error("Exception : "+e);
 		return "inc/error500";
 	}
 	
