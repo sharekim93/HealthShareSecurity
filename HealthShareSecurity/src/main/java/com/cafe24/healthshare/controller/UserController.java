@@ -1,10 +1,12 @@
 package com.cafe24.healthshare.controller;
 
-import java.net.UnknownHostException;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,25 +87,40 @@ public class UserController {
 	}
 
 	@PostMapping("editInfo")
-	public String editAction(UpdateInfo info,Model model) {;
-		service.updateUserInfo(info);
+	public String editAction(UpdateInfo info,Model model,RedirectAttributes rttr) {;
+		int result = service.updateUserInfo(info);
+		String alert="회원정보 수정에 실패했습니다.";
+		if(result>0) {alert="회원정보 수정에 성공했습니다";}
 		model.addAttribute("user",service.getUserInfo(info.getUsername()));
-		return "/member/mypage";
+		rttr.addFlashAttribute("result",alert);
+		return "redirect:/member/mypage";
 	}
 	
 	@GetMapping("editPass") public void editPass() {}
 	
 	@PostMapping("editPass")
-	public String editPassAction(UpdatePass info,Model model) {
-		service.updateUserPass(info);
+	public String editPassAction(UpdatePass info,Model model,RedirectAttributes rttr) {
+		int result = service.updateUserPass(info);
+		String alert="비밀번호 수정에 실패했습니다.비밀번호를 확인하세요";
+		if(result>0) {alert="비밀번호 수정에 성공했습니다";}
 		model.addAttribute("user",service.getUserInfo(info.getUsername()));
-		return "/member/mypage";
+		rttr.addFlashAttribute("result",alert);
+		return "redirect:/member/mypage";
 	}
 	
 	@GetMapping("delete")
 	public void delete() {}
 	
 	@PostMapping("delete")
-	public String deleteAction(User user) { service.deleteUser(user); return "/member/login"; }
+	public String deleteAction(User user,RedirectAttributes rttr) {
+		int result = service.deleteUser(user);
+		String alert="이용해주셔서 감사합니다.";
+		if(result<=0) {
+			alert="회원 탈퇴에 실패했습니다.비밀번호를 확인하세요";
+			rttr.addFlashAttribute("result",alert);
+			return "redirect:/member/mypage";}
+		rttr.addFlashAttribute("result",alert);
+		SecurityContextHolder.clearContext();
+		return "redirect:/member/login"; }
 	
 }

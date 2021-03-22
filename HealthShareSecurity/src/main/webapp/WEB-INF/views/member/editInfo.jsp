@@ -9,7 +9,6 @@
 			<table class="table table-striped">
 				<tbody>
 				<c:set var="u" value="${user}"/>
-					<tr><td>아이디</td><td><input type="text" name="username" id="id" value="${u.nickname}"></td></tr>
 					<tr><td>이름</td><td><input type="text" name="nickname" id="name" value="${u.nickname}"></td></tr>
 					<tr><td>이메일</td><td><input type="text" name="email" id="email" value="${u.email}"></td></tr>
 					<tr>
@@ -29,7 +28,7 @@
 						<c:if test="${!fn:contains(u.interest,'JAVA')}">
 						<input type="checkbox" id="java" name="interest" value="JAVA"/>
 						</c:if>
-						<label for="java">자바</label>
+						<label for="java">JAVA</label>
 						<c:if test="${fn:contains(u.interest,'JSP')}">
 						<input type="checkbox" id="jsp" name="interest" value="JSP" checked/>
 						</c:if>
@@ -62,6 +61,7 @@
 				</tbody>
 			</table>
 			<div class="form-group">
+				<input type="hidden" name="username" id="id" value="${u.username}">
 				<input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"  />
 			</div>
 			<div class="text-center">
