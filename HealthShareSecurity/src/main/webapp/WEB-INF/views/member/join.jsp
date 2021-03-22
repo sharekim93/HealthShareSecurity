@@ -12,7 +12,7 @@
 					<label for="mid">(*) 아이디</label>
 					<div class="row">
 						<div class="col-sm-4">
-							<input type="text" id="mid" name="username" class="form-control" value="${cookie.join_id.value}" placeholder="아이디를 입력하세요"/>		
+							<input type="text" id="mid" name="username" class="form-control" value="" placeholder="아이디를 입력하세요"/>		
 						</div>
 						<div class="col-sm-8">
 							<input type="button" id="checkId" class="btn btn-default" value="아이디중복확인">
@@ -64,15 +64,6 @@
 					</p>
 				</div>
 				<legend>선택정보</legend>
-				<c:if test="${!(empty param.kakaoid)}">
-				<div class="form-group">
-					<p class="text-left">
-						<input type="checkbox" id="kakao" name="kakao" checked>
-						<input type="hidden" name="kakao_id" value="${param.kakaoid}">
-						<label for="kakao">카카오 계정과 연동합니다</label>
-					</p>
-				</div>
-				</c:if>
 				<div class="form-group">
 				<h5>관심 언어 선택</h5>
 					<p class="text-left">
@@ -101,6 +92,7 @@
 				<a class="btn btn-default form-control" href="javascript:history.go(-1);">이전</a>
 				</div>
 				<div class="form-group">
+					<input type="hidden"  name="oauth" value="N"/>
 					<input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"  />
 				</div>
 			</fieldset>
@@ -111,6 +103,20 @@
 <script>
 	$(document).ready(function(){
 		var usableId = -1;
+		
+		var kakaoid="${kakaoid}";
+		if(kakaoid.length!=0){
+			$("input[id='mid']").val(kakaoid);
+			$("input[name='oauth']").val("Y");
+			$("label[for='mid']").css("display","none");
+			$("#mid").css("display","none");
+			$("#checkId").css("display","none");
+			$("#idCheckResult").css("display","none");
+			usableId=true;
+		}
+		
+		var result="${result}";
+		if(result.length!=0){alert("${result}");}
 		
 		$("#submit").click(function(){
 			if($("#mid").val()==""){alert("아이디를 확인해주세요");$("#mid").focus();return false;}
@@ -147,7 +153,7 @@
 					$("#address2").focus();					
 				}
 			}).open();
-		});
+		});		
 	});
 </script>
 

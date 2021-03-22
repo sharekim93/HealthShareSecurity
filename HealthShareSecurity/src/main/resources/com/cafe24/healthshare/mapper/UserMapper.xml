@@ -40,10 +40,15 @@
 				   (  username,    nickname,   email,   ip,   interest,   sns,   zonecode,   address1,   address2)
 			 VALUES(#{username},#{nickname},#{email},#{ip},#{interest},#{sns},#{zonecode},#{address1},#{address2})
 	</insert>
+	
+	<insert id="insertOAuth">
+		INSERT INTO user_oauth values()
+	</insert>
+	
 	<select id="authenticate" resultMap="memberMap">
 		SELECT	m.username,m.password,m.enabled,a.authority,b.kakao_id
 		FROM	users m  LEFT OUTER JOIN authorities a on m.username=a.username
-						 LEFT OUTER JOIN user_sns b on m.username=b.username
+						 LEFT OUTER JOIN user_oauth b on m.username=b.username
 		WHERE	m.username=#{username} or b.kakao_id=#{username}
 	</select>
 	<select id="getUserInfo" resultMap="userinfo">
@@ -54,8 +59,8 @@
 	
 	<select id="validateUser" resultType="integer">
 		SELECT	count(*)
-		FROM	users
-		WHERE	username = #{username}
+		FROM	users m LEFT OUTER JOIN user_oauth b on m.username=b.username
+		WHERE	m.username = #{username} or b.kakao_id=#{username}
 	</select>
 	
 	<update id="updateUserInfo">

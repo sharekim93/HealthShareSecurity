@@ -14,4 +14,5 @@ public class Join {
 	private String address2;
 	private String interest;
 	private String sns;
+	private String oauth;
 }

@@ -18,6 +18,7 @@ import com.cafe24.healthshare.dto.UpdatePass;
 import com.cafe24.healthshare.mapper.UserMapper;
 import com.cafe24.healthshare.util.KakaoLogin;
 import com.cafe24.healthshare.vo.Auth;
+import com.cafe24.healthshare.vo.OAuth;
 import com.cafe24.healthshare.vo.User;
 import com.cafe24.healthshare.vo.UserInfo;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 	public int joinUser(Join join){
 		User user = new User();
 		Auth auth = new Auth();
+		OAuth oauth = new OAuth();
 		UserInfo userinfo = new UserInfo();
 		
 		user.setUsername(join.getUsername());
@@ -48,6 +50,12 @@ public class UserServiceImpl implements UserService {
 		
 		auth.setUsername(join.getUsername());
 		// DB의 Auth Table의 Authority의 Default가 "ROLE_MEMBER" 이므로 set 생략
+		
+		
+		  if(join.getOauth().equalsIgnoreCase("Y")) {
+		  oauth.setUsername(join.getUsername()); oauth.setKakaoid(join.getUsername());
+		  }
+		 
 		
 		userinfo.setUsername(join.getUsername());
 		userinfo.setNickname(join.getNickname());
@@ -62,9 +70,10 @@ public class UserServiceImpl implements UserService {
 		int result =-1;
 		try {
 			result = mapper.insertUser(user);
-			if(result>0) {result = mapper.insertAuth(auth);} else {throw new Exception("유저생성실패");}
-			if(result>0) {result = mapper.insertUserInfo(userinfo);} else {throw new Exception("권한생성실패");}
-			if(result<=0) {throw new Exception("유저정보 입력 실패");}
+			result = mapper.insertAuth(auth);
+			result = mapper.insertUserInfo(userinfo);
+			if(join.getOauth().equalsIgnoreCase("Y")) {result = mapper.insertOAuth(oauth);}
+			if(result<=0) {throw new Exception("유저정보 생성 실패");}
 		} catch (Exception e) {
 			log.error("JOIN ERROR :\n"+e.getMessage());
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -75,19 +84,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInfo getUserInfo(String username) { return mapper.getUserInfo(username); }
 
+	
 	@Override
 	public String getUsernameFromKakao(String code) {
-		
-		String kakaoId="";
+
+		String kakaoId = "";
 		User user = new User();
 		try {
 			JsonNode accessToken = KakaoLogin.getKakaoAccessToken(code);
 			JsonNode userinfo = KakaoLogin.getKakaoUserInfo(accessToken);
 			kakaoId = userinfo.get("id").asText();
 			user = mapper.authenticate(kakaoId);
-			if(user==null) {return null;};
-			
-		}
+			if (user == null) { return kakaoId; }
+		} 
 		catch (ClientProtocolException e) { e.printStackTrace(); }
 		catch (IOException e) { e.printStackTrace(); }
 		

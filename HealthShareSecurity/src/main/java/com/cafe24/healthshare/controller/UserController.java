@@ -52,12 +52,12 @@ public class UserController {
 	@GetMapping("KakaoLogin")
 	public String kakaoLogin(@RequestParam String code,RedirectAttributes rttr,Model model) {
 		String username = service.getUsernameFromKakao(code);
-		if(username==null) {
-			rttr.addAttribute("result","카카오로 가입되지 않은 아이디입니다. 가입 후 이용하세요");
-			return "redirect:/member/joinAgree";
+		if(service.validateUser(username)==0) {
+				rttr.addFlashAttribute("result","카카오로 가입되지 않은 아이디입니다. 가입 후 이용하세요");
+				rttr.addFlashAttribute("kakaoid",username);
+				return "redirect:/member/join";
 		}
-		model.addAttribute("user",service.getUserInfo(username));
-		return "/member/mypage";
+		return "/member/login";
 	}
 	
 	@GetMapping("joinAgree") public void joinAgree() {}	

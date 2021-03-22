@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cafe24.healthshare.dto.UpdateInfo;
 import com.cafe24.healthshare.vo.Auth;
+import com.cafe24.healthshare.vo.OAuth;
 import com.cafe24.healthshare.vo.User;
 import com.cafe24.healthshare.vo.UserInfo;
 
@@ -59,14 +60,24 @@ public class Member002_Mapper {
 		log.info("...........InsertUserInfo.........."+mapper.insertUserInfo(info));
 	}
 	
+	/*
+	 * @Test public void insertOauth() { OAuth auth = new OAuth();
+	 * auth.setUsername("a"); auth.setKakaoid("aa");
+	 * log.info(".....InsertOAuth : "+mapper.insertOAuth(auth)); }
+	 */
+	
 	public void read_security() {
 		log.info(mapper.authenticate("user1").toString());
 	}
-	@Test
-	public void kakaoLogin() {
-		log.info(mapper.authenticate("a").toString());
-	}
+	
+	/*
+	 * public void kakaoLogin() { log.info(mapper.authenticate("aa").toString()); }
+	 */
 
+	
+	public void validateTest() {
+		log.info(String.valueOf(mapper.validateUser("b")));
+	}
 	
 	public void getUserInfo() {
 		log.info(mapper.getUserInfo("user1").toString());
