@@ -15,7 +15,8 @@
 	<security:http>
 		<security:access-denied-handler ref="deniedHandler"/>
 		<security:form-login login-page="/member/login" authentication-success-handler-ref="successHandler" authentication-failure-handler-ref="loginFailure"/>
-		<security:logout logout-url="/member/logout" logout-success-url="/member/login"/>
+		<security:logout logout-url="/member/logout" logout-success-url="/member/login" delete-cookies="remember-me, JSESSION_ID"/>
+		<security:remember-me data-source-ref="dataSource"/>
 	</security:http>
    
     <security:authentication-manager>
