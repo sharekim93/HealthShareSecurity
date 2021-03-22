@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>다양한 운동정보 HealthShare</title>
+  <title>HealthShare Spring Security</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -147,22 +147,6 @@
     
 	.board{margin-top:20px;}
 	.boardArticle{float:right;margin:20px auto;height:315px;border-radius:1%;}
-	.right_p{float:right;}
-	.left_p{float:left;}
-
-	.bmi_cal > div{
-		margin-top:10px;
-		width: 100%;
-    	height: 30px;	
-	}
-	.bmi_cal > div > input{width:100%;}
-	.bmi_cal > div > p{
-		margin: 50px auto;
-	}
-	#body_result{
-		font-size:30px;
-		font-weight:600;
-		}
 	.picture{margin:0 auto;}
 	.title{
 		text-align:left;
@@ -176,28 +160,6 @@
 	.table>tbody>tr>td{vertical-align:middle;}
 	.btn_func{margin:1px;}
 	.indexer{text-align:right; margin-right:10px;}
-	.pagination {
-	  display: inline-block;
-	}
-	.pagination a {
-	  color: black;
-	  float: left;
-	  padding: 8px 16px;
-	  text-decoration: none;
-	  transition: background-color .3s;
-	}
-	.pagination a.active {
-	  background-color: #337ab7;
-	  color: white;
-	  font-weight:bold;
-	}
-	.pagination a:hover:not(.active) {background-color: #ddd;}
-	#search{background-color: #337ab7; color:white;}
-	.carousel{text-align: -webkit-center;}
-	#myCarousel .carousel-inner .item > img {width:100%;}
-	.carousel-control{
-		opacity:0;background-image:none;
-	}
 	.boardArticle{
 		position: relative;
 		margin-top:0;
@@ -222,26 +184,6 @@
 	    top: 0;
 	    right: 0;
 	    color: #666;
-	}
-	
-	.secret_pass{
-	    margin: 0 auto;
-	    padding: 100px 0;
-	    width: 500px;
-	}
-	.secret_pass p{
-	    padding: 20px;
-	    border: 1px solid #dde4e9;
-	    border-bottom: 0;
-	    background: #fff;
-	    margin:0;
-	}
-	.secret_pass fieldset{
-	    margin: 0 0 30px;
-	    padding: 30px 0;
-	    border: 1px solid #e9e9e9;
-	    background: #f5f6fa;
-	    text-align: center;
 	}
 	.btn_back{float:right;}
 	.btn_back a{
@@ -279,56 +221,6 @@
 	    overflow: visible;
 	    zoom: 1;
 	}
-	.vertical-nav{
-		margin: 10px 10px 0 100px;
-		width:190px;
-		min-height:600px;
-	}
-	.vertical-nav ul {
-	  list-style-type: none;
-	  margin: 0;
-	  padding: 0;
-	  /* width: 190px; */
-	  background-color: #f1f1f1;
-	  border-radius:4%;
-	}
-	
-	.vertical-nav li a {
-	  display: block;
-	  color: #000;
-	  padding: 0;
-	  text-decoration: none;
-	}
-	
-	.vertical-nav li a:hover {
-	  background-color: #555;
-	  color: white;
-	} 
-	
-	form.main_search select, form.main_search input {
-    padding: 4px;
-    margin: 0 4px;
-    border-radius: 7px;
-    border: 1px solid royalblue;
-  	}  
-  	
-  	li.list-group-item label {
-    margin-right: 27px;
-    display: inline-block;
-    width: 61px;
-	}
-	
-	select#sch_field {
-    padding: 7px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-	}
-	
-	input#q {
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-	}
 	
 	.search-form.margin-top select, .search-form.margin-top input {
     vertical-align: middle;
@@ -350,14 +242,16 @@
     border: 1px solid #337ab7;
  
 	}
+	.panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
+	    border-top: none;
+	}
 	
 	/* 공지사항 css */
 	.container.panel.subpop {
     position: fixed;
-    top: 8%;
-    left: 10%;
-    width: 380px;
-    color: #333;
+    top: 20%;
+    left: 7%;
+    width: 400px;
     color: white;
     background-color: rgba(0,0,0,0.8);
     z-index: 10;
@@ -371,81 +265,13 @@
     text-align: center;
     }
     
-    .container.panel.subpop > p > img {
-	width:348px;
-    }
-    
-    .video_list {
-    	list-style:none;
-    }
-    
-    ul.video_list>li {
-    	padding:10px;
-    	margin: 20px auto;
-    	border-bottom: 1px solid #EEEEEE;
-    	cursor: pointer;
-	}
-  
-  	ul.video_list>li>a>img{
-  		width: 20px;
-    	height: 20px;
-    	margin: auto 12px;
-    }
-    .search_suggest > h5{
-    	margin-top: 40px;
-    	color: #f3f3f3;
-    }
-    .search_suggest > form > input[type="button"]{
-	    border-radius: 15px;
-	    padding: 5px 10px;
-	    background-color: crimson;
-	    font-size: 15px;
-	    border: 2px solid dimgray;
-	    color: white;
-    }
-    .modal-content{padding:20px;}
-    
-    
-  	.index_filter {
-	    float: left;
-	    display: flex;
-	    -webkit-box-shadow:none;
-	    width:100%;
-	    margin:12px auto;
-	}
-	 
-	.index_filter > .panel-collapse {
-	    border:none; 
-	}
-	.index_filter > .panel-collapse > .list-group {
-	    display: flex;
-	    border:none;
+	.container.panel.subpop > p > strong > a{
+	color:darkorange;
 	}
 	
-	.index_filter > .panel-collapse > .list-group >	li.list-group-item{
-		padding:5px;
-		margin:1px auto;
-		border:none;
+	.introduce{
+		width:100%
 	}
-	.panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
-	    border-top: none;
-	}
-
-	.index_filter > .panel-collapse > .list-group >	li.list-group-item label{
-		margin:auto;
-	    display: inline-block;
-	    width: 71px;
-	    padding-left:2px;
-	    border:none;
-	    font-size:14px;
-	    font-weight:600;
-	}
-	.filter-body{
-		height:100%;
-	}
-
-	
-	
   </style>
 </head>
 <body>
@@ -453,25 +279,20 @@
 <nav class="navbar gnb">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index"  >HEALTH SHARE</a>
-    </div>
-    <form class="navbar-form navbar-left" action="info.board" method="post">
-      <div class="form-group  myform">
-        <input type="text"  title="검색어를 입력하세요"  id="header_search" name="q"  class="form-control" placeholder="'벤치' 를 검색해보세요">
-        <button type="submit"  class="header_form_go"><span class="	glyphicon glyphicon-search"></span></button>
-      </div>
-    </form>
-    
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/member/login"  >HEALTH SHARE</a>
+    </div>    
     <ul class="nav navbar-nav navbar-right">
-		<li><a href="info.board" class="first">운동정보</a></li>
-		<li><a href="list.pic">회원사진</a></li>
-		<li><a href="free.board">자유게시판</a></li>
-		<li><a href="secret.board">비밀글게시판</a></li>
+		<li><a href="${pageContext.request.contextPath}/introduce" class="first">자기소개</a></li>
+		<li><a href="http://sharekim93.cafe24.com/HealthShare">JSP 포트폴리오</a></li>
     </ul>
   </div>
 </nav>
 <nav class="navbar lnb">
   <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="#">JSP포트폴리오 바로가기</a></li>
+      <li><a href="#">SPRING 포트폴리오 바로가기</a></li>
+    </ul> 
 	<ul class="nav navbar-nav navbar-right">
 		<sec:authorize access="isAuthenticated()">
 			<li><a href='${pageContext.request.contextPath}/member/mypage'><strong><sec:authentication property="principal.username"/>님의 마이페이지</strong></a></li>
@@ -486,7 +307,6 @@
 			<li><a href='${pageContext.request.contextPath}/member/login'><strong>로그인</strong></a></li>
 			<li><a href='${pageContext.request.contextPath}/member/joinAgree'><strong>회원가입</strong></a></li>
 		</sec:authorize>
-			<li><a href="index.cs"><strong>고객센터</strong></a></li>
 	</ul>
   </div>
 </nav> 
