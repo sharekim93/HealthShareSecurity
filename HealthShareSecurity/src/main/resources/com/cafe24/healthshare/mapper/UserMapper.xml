@@ -42,7 +42,7 @@
 	</insert>
 	
 	<insert id="insertOAuth">
-		INSERT INTO user_oauth values()
+		INSERT INTO user_oauth values(#{username},#{kakaoid})
 	</insert>
 	
 	<select id="authenticate" resultMap="memberMap">
@@ -65,7 +65,7 @@
 	
 	<update id="updateUserInfo">
 		UPDATE userinfo
-		   SET email = #{email}, interest = #{interest}, sns= #{sns}, zonecode = #{zonecode},
+		   SET nickname = #{nickname}, email = #{email}, interest = #{interest}, sns= #{sns}, zonecode = #{zonecode},
 		   	   address1 = #{address1}, address2 = #{address2}
 		 WHERE username = #{username} 
 	</update>
