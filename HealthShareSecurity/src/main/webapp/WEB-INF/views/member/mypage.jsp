@@ -7,7 +7,10 @@
 		<caption style="margin-left:0px;">회원정보</caption>
 		<tbody>
 			<c:set var="u" value="${user}"></c:set>
+			<sec:authentication property="principal" var="p"/>
+			<c:if test="${!empty p.password}">
 			<tr><th scope="row">아이디</th><td>${u.username}</td></tr>
+			</c:if>
 			<tr><th scope="row">이름</th><td>${u.nickname}</td></tr>
 			<tr><th scope="row">이메일</th><td>${u.email}</td></tr>
 			<tr><th scope="row">주소</th><td>${u.address1}&nbsp;${u.address2}</td></tr>
@@ -18,9 +21,16 @@
 		</table>
 		<div class="text-center">
 			<input type="button" value="회원정보수정" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/member/editInfo'" style="margin-top:10px;background-color:#337ab7;color:white;">
+			<c:if test="${!empty p.password}">
 			<input type="button" value="비밀번호수정" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/member/editPass'" style="margin-top:10px;background-color:#337ab7;color:white;">
+			</c:if>
 			<input type="button" value="탈퇴"		  id="withdrawal" class="btn btn-default" style="margin-top:10px;background-color:#337ab7;color:white;">
 		</div>
+		<c:if test="${empty p.password}">
+			<div style="margin-top:20px;">
+				<p class="text-center">카카오 로그인의 경우 비밀번호 수정 기능이 없습니다</p>
+			</div>
+		</c:if>
 		<form action="${pageContext.request.contextPath}/member/delete" id="delete" method="post">
 			<input type="hidden" name="username" id="username" value="${u.username}">
 			<input type="hidden" name="password" id="password" value="">
