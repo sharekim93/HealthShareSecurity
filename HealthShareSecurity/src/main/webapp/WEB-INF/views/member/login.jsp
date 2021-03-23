@@ -23,7 +23,7 @@
 					<div class="login-btns">
 					<input type="submit" class="btn btn-login" value="로그인" id="submit">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=1def83c8f6ac181e4df9db51d15d7f0e&
-							redirect_uri=http://localhost:8181/HealthShareSecurity/member/KakaoLogin&response_type=code">
+							redirect_uri=http://sharekim93.cafe24.com/HealthShareSecurity/member/KakaoLogin&response_type=code">
 					<img src="${pageContext.request.contextPath}/resources/images/kakao_login_medium_narrow.png"></a>
 					<input type="hidden"  name="${_csrf.parameterName}"  value="${_csrf.token}"  />
 					</div>
@@ -36,8 +36,8 @@
 		<h3 class="panel-heading">안내 말씀</h3>
 		<br/>
 		<p class="first">현재 접속하신 페이지는 <strong>스프링 포트폴리오</strong> 페이지 입니다</p>
-		<p>Spring 포트폴리오의 경우<br/> 현재 스프링시큐리티를 이용한 CRUD와 <br/><strong><a href="${pageContext.request.contextPath}/introduce">자기소개 페이지(클릭)</a></strong>로 구성되어 있습니다.</p>
-		<p><strong><a href="http://sharekim93.cafe24.com/HealthShare">JSP포트폴리오(클릭)</a></strong>에서 보다 다양한 기술을 확인하실 수 있습니다.</p>
+		<p>Spring 포트폴리오의 경우<br/> 현재 스프링시큐리티를 이용한 회원가입 CRUD와 <br/><strong><a href="${pageContext.request.contextPath}/introduce">자기소개 페이지(클릭)</a></strong>로 구성되어 있습니다.</p>
+		<p><strong><a href="http://sharekim93.cafe24.com/HealthShare">JSP포트폴리오(클릭)</a></strong>에서 더 많은 기술을 확인하실 수 있습니다.</p>
 		<p class="text-right">
 			<input type="button" class="btn btn-default" id="close" value="닫기">
 		</p>	
