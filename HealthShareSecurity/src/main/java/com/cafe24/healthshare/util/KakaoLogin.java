@@ -25,7 +25,7 @@ public class KakaoLogin {
 	        final String 			  RequestUrl 	= "https://kauth.kakao.com/oauth/token?"
 													+ "grant_type=authorization_code"
 													+ "&client_id=1def83c8f6ac181e4df9db51d15d7f0e"
-													+ "&redirect_uri=http://localhost:8181/HealthShareSecurity/member/KakaoLogin"
+													+ "&redirect_uri=http://sharekim93.cafe24.com/HealthShareSecurity/member/KakaoLogin"
 													+ "&code="+code; // Host
 	        final HttpClient 		  client 		= HttpClientBuilder.create().build();
 	        final HttpGet 			  get			= new HttpGet(RequestUrl);
