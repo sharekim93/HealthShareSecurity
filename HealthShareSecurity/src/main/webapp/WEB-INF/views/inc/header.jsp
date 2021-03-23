@@ -295,7 +295,7 @@
     </ul> 
 	<ul class="nav navbar-nav navbar-right">
 		<sec:authorize access="isAuthenticated()">
-			<li><a href='${pageContext.request.contextPath}/member/mypage'><strong><sec:authentication property="principal.username"/>님의 마이페이지</strong></a></li>
+			<li><a href='${pageContext.request.contextPath}/member/mypage'><strong>마이페이지</strong></a></li>
 			<li>
 				<a href="#" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
 				<form id="logout-form" action='<c:url value='/member/logout'/>' method="POST">
