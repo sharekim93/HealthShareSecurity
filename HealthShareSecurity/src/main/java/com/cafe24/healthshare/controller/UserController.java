@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -59,7 +60,10 @@ public class UserController {
 				rttr.addFlashAttribute("kakaoid",username);
 				return "redirect:/member/join";
 		}
-		return "/member/login";
+		User user = new User(); user.setUsername(username);
+		Authentication auth = new UsernamePasswordAuthenticationToken(user,"");
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		return "redirect:/member/mypage";
 	}
 	
 	@GetMapping("joinAgree") public void joinAgree() {}	
