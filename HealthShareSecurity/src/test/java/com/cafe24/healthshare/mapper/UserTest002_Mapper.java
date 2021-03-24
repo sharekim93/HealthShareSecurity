@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
 @Slf4j
-public class Member002_Mapper {
+public class UserTest002_Mapper {
 
 	PasswordEncoder pwencoder;
 	

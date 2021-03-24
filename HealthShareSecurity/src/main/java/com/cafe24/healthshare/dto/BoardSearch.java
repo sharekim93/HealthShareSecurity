@@ -8,4 +8,11 @@ public class BoardSearch {
 	private String field;
 	private String query;
 	private int page;
+	
+	public BoardSearch() {}
+	public BoardSearch(String field, String query, int page) {
+		this.field	= field;
+		this.query	= query;
+		this.page	= page;
+	}
 }

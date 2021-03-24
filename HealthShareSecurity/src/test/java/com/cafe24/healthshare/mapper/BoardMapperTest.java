@@ -27,7 +27,7 @@ public class BoardMapperTest {
 		dto.setUsername("a");
 		dto.setBcontent("테스트입니다");
 		dto.setBip("1234");
-		dto.setBimg("이미지.jpg");
+		dto.setBfile("이미지.jpg");
 		
 		log.info("WriteTest : "+ mapper.writePost(dto));
 	}
@@ -42,14 +42,12 @@ public class BoardMapperTest {
 	public void getListTest() {
 		BoardSearch dto = new BoardSearch();
 		dto.setField("btitle"); dto.setQuery("");dto.setPage(0);
-		log.info("Get List : "+mapper.getList(dto));
+		log.info(mapper.getList(dto).toString());
 	}
 //	public int getPostCount(String field, String query) ;
-	
+	@Test
 	public void getPostCountTest() {
-		BoardSearch dto = new BoardSearch();
-		dto.setField("btitle"); dto.setQuery("");dto.setPage(0);
-		log.info("GET List Count : "+mapper.getPostCount(dto));
+		log.info("GET List Count : "+mapper.getPostCount(new BoardSearch()));
 	}
 //	public int updatePost(Board dto) ;
 
@@ -60,7 +58,7 @@ public class BoardMapperTest {
 		dto.setUsername("a");
 		dto.setBcontent("내용수정");
 		dto.setBip("1234");
-		dto.setBimg("이미지.jpg");
+		dto.setBfile("이미지.jpg");
 		log.info("UpdatePostTEST : "+mapper.updatePost(dto));
 	}
 	
@@ -87,11 +85,11 @@ public class BoardMapperTest {
 		dto.setUsername("a");
 		dto.setBcontent("내용수1정");
 		dto.setBip("1234");
-		dto.setBimg("이미지.jpg");
+		dto.setBfile("이미지.jpg");
 		log.info("replyPostTest : "+mapper.replyPost(dto));
 	}
 //	public int deletePost(Board dto) ;
-	@Test
+	
 	public void deleteTest() {
 		Board dto = new Board();
 		dto.setBno(1); dto.setUsername("a");

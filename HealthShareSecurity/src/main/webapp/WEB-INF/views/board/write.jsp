@@ -2,19 +2,14 @@
 <%@include file="../inc/header.jsp" %>
 	<div class="container">
 		<h3>글쓰기</h3>
-		<form action="write.board" method="post" id="form_write">
+		<form action="${pageContext.request.contextPath}/board/write" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<div>
 					<input type="hidden" name="c" value="${(!empty param.c)? param.c:'1'}"/>
 				</div>
 				<div class="form-group">
-					<label for="bname">이름</label>
-					<input type="text" id="bname" name="bname" class="form-control" placeholder="이름을 입력하세요">
-				</div>
-				<div class="form-group">
-					<label for="bpassword">비밀번호</label>
-					<input type="password" id="bpassword" name="bpass" class="form-control" placeholder="비밀번호를 입력하세요">
-					<p>(*) 수정, 삭제 시 필수</p>
+					<label for="bname">작성자</label>
+					<input type="text" id="bname" name="username" class="form-control" >
 				</div>
 				<div class="form-group">
 					<label for="btitle">제목</label>
@@ -24,18 +19,13 @@
 					<label for="bcontents">내용</label>
 					<textarea rows=10 id="bcontents" name="bcontent" class="form-control" placeholder="내용을 입력하세요"></textarea>
 				</div>
-				<div class="buttons">
-				<c:if test="${param.c eq '4'}">
-				<div class="form-group" style="float:left;">
-					<input type="checkbox" name="bhidden" id="hidden_check" value="1">
-					<label for="hidden_check">제목을 비밀로하기</label>
-				</div>
-				</c:if>
+				<div class="form-group">
+				  <label for="file"  >이미지 업로드</label>
+				  <input type="file" name="img" id="file"  class="form-control" >
+				</div>	
 				<div class="form-group" style="float:right;" >
 					<input type="submit" value="입력" id="submit" class="btn btn-default">
-					<input type="reset" value="취소" id="cancel" class="btn btn-default">
 					<a href="list.board" class="btn btn-default">목록보기</a>
-				</div>
 				</div>
 			</fieldset>
 		</form>

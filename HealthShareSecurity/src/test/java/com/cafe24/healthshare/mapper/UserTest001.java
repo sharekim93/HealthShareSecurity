@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
   "file:src/main/webapp/WEB-INF/spring/security-context.xml"
   })
 @Slf4j
-public class Member001_Tests {
+public class UserTest001 {
 
   @Setter(onMethod_ = @Autowired)
   private PasswordEncoder pwencoder;

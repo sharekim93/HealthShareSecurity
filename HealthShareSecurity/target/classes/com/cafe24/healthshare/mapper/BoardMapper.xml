@@ -12,13 +12,13 @@
 		<result 	property="bhit"	 		column="bhit"/>
 		<result 	property="bcontent"		column="bcontent"/>
 		<result 	property="bip"	 		column="bip"/>
-		<result 	property="bimg"	 		column="bimg"/>
+		<result 	property="bfile"	 	column="bfile"/>
 	</resultMap>
 
 	<insert id="writePost">
 		INSERT INTO spring_freeboard
-					(btitle, username, bcontent, bip, bimg, bgroup, bstep, bindent)
-			 VALUES (#{btitle},#{username},#{bcontent},#{bip},#{bimg},
+					(btitle, username, bcontent, bip, bfile, bgroup, bstep, bindent)
+			 VALUES (#{btitle},#{username},#{bcontent},#{bip},#{bfile},
 					IFNULL((SELECT MAX(bgroup) FROM spring_freeboard a),0)+1,
 					(IFNULL((SELECT MAX(bgroup) FROM spring_freeboard b),0)+1)*1000,0)
 	</insert>
@@ -33,8 +33,8 @@
 		SELECT	 *
 		FROM     spring_freeboard
 		<where>
-			<if test="query !=null or query !='' ">
-		    ${field} LIKE '%${query}%'
+			<if test="(field!=null) and (query !=null or query !='') ">
+		    	${field} LIKE '%${query}%'
 		    </if>
 		</where>   
 		ORDER BY bstep DESC, bindent ASC 
@@ -45,15 +45,15 @@
 		SELECT	 count(*)
 		FROM     spring_freeboard
 		<where>
-			<if test="query !=null or query !='' ">
-		    ${field} LIKE '%${query}%'
+			<if test="(field!=null) and (query !=null or query !='')">
+				 ${field} LIKE '%${query}%'
 		    </if>
-		</where>   
+	    </where>
 	</select>
 	
 	<update id="updatePost">
 		UPDATE	spring_freeboard
-		SET		btitle = #{btitle}, bcontent = #{bcontent}
+		SET		btitle = #{btitle}, bcontent = #{bcontent}, bfile = #{bfile}
 		WHERE	bno = #{bno} and username = #{username}
 	</update>
 	
@@ -72,8 +72,8 @@
 	</update>
 	<insert id="replyPost">
 		INSERT INTO	spring_freeboard
-					(btitle, username, bcontent, bip, bimg, bgroup, bstep, bindent)
-			 VALUES (#{btitle},#{username},#{bcontent},#{bip},#{bimg},
+					(btitle, username, bcontent, bip, bfile, bgroup, bstep, bindent)
+			 VALUES (#{btitle},#{username},#{bcontent},#{bip},#{bfile},
 					(SELECT bgroup FROM (SELECT bgroup FROM spring_freeboard WHERE bno=#{bno}) b),
 					(SELECT bstep FROM (SELECT bstep FROM spring_freeboard WHERE bno=#{bno}) b)-1,
 					(SELECT bindent FROM (SELECT bindent FROM spring_freeboard WHERE bno=#{bno}) c)+1)

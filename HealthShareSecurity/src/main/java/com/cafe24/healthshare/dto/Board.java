@@ -11,5 +11,5 @@ public class Board {
 	private int	   bhit;
 	private String bcontent;
 	private String bip;
-	private String bimg;
+	private String bfile;
 }
