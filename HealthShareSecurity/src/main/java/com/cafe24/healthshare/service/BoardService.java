@@ -14,6 +14,7 @@ public interface BoardService {
 	public Board getPost(Board dto) ;
 	public List<Board> getList();
 	public List<Board> getList(BoardSearch dto) ;
+	public int getPostCount(BoardSearch dto);
 	public int updatePost(Board dto,MultipartFile file, HttpServletRequest request) ;
 	public int replyPost(Board dto,MultipartFile file, HttpServletRequest request) ;
 	public int deletePost(Board dto) ;

@@ -40,6 +40,7 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.writePost(dto);
 	}
 	
+	
 	/*
 	 * 메서드명	: getPost
 	 * 파라미터	: Board dto
@@ -50,6 +51,7 @@ public class BoardServiceImpl implements BoardService {
 			   mapper.updateHit(dto);
 		return mapper.getPost(dto);
 	}
+	
 	
 	/*
 	 * 메서드명	: getList
@@ -63,14 +65,31 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getList(dto);
 	}
 	
+	
 	/*
 	 * 메서드명	: getList
 	 * 파라미터	: BoardSearch dto
-	 * 내  용		: 전달받은 dto에 해당하는 10개의 보드를 List로 가져옵니다.
+	 * 내  용		: 전달받은 dto에 해당하는 10개의 post를 List로 가져옵니다.
 	 * return	: List<Board>
 	 */
 	@Override public List<Board> getList(BoardSearch dto) { return mapper.getList(dto); }
 	
+	
+	/*
+	 * 메서드명	: getPostCount
+	 * 파라미터	: BoardSearch dto
+	 * 내  용		: 전달받은 dto에 해당하는 post의 수를 return 합니다
+	 * return	: int
+	 */
+	@Override public int getPostCount(BoardSearch dto) { return mapper.getPostCount(dto); }
+	
+	
+	/*
+	 * 메서드명	: updatePost
+	 * 파라미터	: Board dto,MultipartFile file, HttpServletRequest request
+	 * 내  용		: Update.jsp페이지에서 작성한 내용을 Board로 전달 받아 수정합니다. MultipartFile이 전달이 된 경우 파일 이름을 바꿉니다.
+	 * return	: int
+	 */
 	@Override
 	public int updatePost(Board dto,MultipartFile file, HttpServletRequest request) {
 		dto.setBfile(request.getParameter("prev_file"));
@@ -83,6 +102,12 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
+	/*
+	 * 메서드명	: replyPost
+	 * 파라미터	: Board dto,MultipartFile file, HttpServletRequest request
+	 * 내  용		: writePost와 마찬가지로 전달받은 dto,file,request 정보로 답글을 남깁니다.
+	 * return	: int
+	 */
 	@Override public int replyPost(Board dto,MultipartFile file, HttpServletRequest request) {
 
 		try { dto.setBip(InetAddress.getLocalHost().getHostAddress()); } catch (UnknownHostException e) { e.printStackTrace(); }
@@ -90,8 +115,20 @@ public class BoardServiceImpl implements BoardService {
 		int result = mapper.replyPost(dto); return result; 
 	}
 	
+	/*
+	 * 메서드명	: deletePost
+	 * 파라미터	: Board dto
+	 * 내  용		: 전달 받은 dto의 bno와 username을 비교하여 글을 삭제합니다.
+	 * return	: int
+	 */
 	@Override public int deletePost(Board dto) {  int result = mapper.deletePost(dto); return result; }
 	
+	/*
+	 * 메서드명	: fileUpload
+	 * 파라미터	: String originName,HttpServletRequest request, byte[] fileData
+	 * 내  용		: originName과 fileData를 전달 받아 path에 저장하고 저장된 파일 이름을 return 합니다.
+	 * return	: String
+	 */
 	public String fileUpload(String originName,HttpServletRequest request, byte[] fileData) throws IOException{
 		String saveName = UUID.randomUUID().toString() + "_" + originName;
 		//String path="/upload";
@@ -101,4 +138,5 @@ public class BoardServiceImpl implements BoardService {
 		FileCopyUtils.copy(fileData, target);
 		return saveName;
 	}
+
 }

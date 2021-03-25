@@ -41,7 +41,7 @@
 		LIMIT	 ${page},10 
 	</select>
 	
-	<select id="getPostCount" resultType="int">
+	<select id="getPostCount" parameterType="com.cafe24.healthshare.dto.BoardSearch" resultType="int">
 		SELECT	 count(*)
 		FROM     spring_freeboard
 		<where>
