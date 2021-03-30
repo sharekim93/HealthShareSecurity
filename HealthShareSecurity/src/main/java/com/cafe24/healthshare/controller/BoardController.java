@@ -1,5 +1,8 @@
 package com.cafe24.healthshare.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,20 +22,31 @@ import com.cafe24.healthshare.dto.BoardSearch;
 import com.cafe24.healthshare.service.BoardService;
 import com.cafe24.healthshare.util.Paging;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/board/")
 @EnableAspectJAutoProxy
+@Slf4j
 public class BoardController {
 
 	@Autowired
 	private BoardService service;
 	
 	//GET
-	@GetMapping("list") 
-	public void list( @RequestParam(value="p", defaultValue="0") int pstartno,Model model) {
-		BoardSearch dto = new BoardSearch(pstartno);
-		model.addAttribute("list",service.getList(dto));
-		model.addAttribute("paging",new Paging(pstartno, service.getPostCount(dto)));
+	@GetMapping("list") public void list() {}
+	
+	@GetMapping("getList")
+	@ResponseBody
+	public Map<String,Object> getList(	@RequestParam(value="f", defaultValue="btitle") String field,
+										@RequestParam(value="q", defaultValue="") String query,
+										@RequestParam(value="p", defaultValue="0") int pstartno
+									 ){
+		Map<String,Object> map = new HashMap<>();
+		BoardSearch dto = new BoardSearch(field,query,pstartno);
+		map.put("list",service.getList(dto));
+		map.put("paging",new Paging(pstartno, service.getPostCount(dto)));
+		return map;
 	}
 	@GetMapping("write") public void goWrite() {}
 	@GetMapping("detail") public void detail(Board dto,Model m) { m.addAttribute(service.getPost(dto)); }
