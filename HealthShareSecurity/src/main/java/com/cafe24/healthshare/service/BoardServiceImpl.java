@@ -59,11 +59,10 @@ public class BoardServiceImpl implements BoardService {
 	 * 내  용		: BoardSearch dto를 기본값(field="btitle",query="",page=0)으로 설정하고 10개의 보드를 List로 가져옵니다.
 	 * return	: List<Board>
 	 */
-	@Override
-	public List<Board> getList() {
-		BoardSearch dto = new BoardSearch("btitle","",0);
-		return mapper.getList(dto);
-	}
+	/*
+	 * @Override public List<Board> getList() { BoardSearch dto = new
+	 * BoardSearch("btitle","",0); return mapper.getList(dto); }
+	 */
 	
 	
 	/*

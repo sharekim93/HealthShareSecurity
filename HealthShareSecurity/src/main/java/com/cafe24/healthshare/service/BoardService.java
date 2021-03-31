@@ -12,7 +12,6 @@ import com.cafe24.healthshare.dto.BoardSearch;
 public interface BoardService {
 	public int writePost(Board dto,MultipartFile file,HttpServletRequest request) ;
 	public Board getPost(Board dto) ;
-	public List<Board> getList();
 	public List<Board> getList(BoardSearch dto) ;
 	public int getPostCount(BoardSearch dto);
 	public int updatePost(Board dto,MultipartFile file, HttpServletRequest request) ;
