@@ -3,8 +3,13 @@ package com.cafe24.healthshare.service_test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockRequestDispatcher;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.healthshare.dto.Board;
 import com.cafe24.healthshare.dto.BoardSearch;
@@ -20,7 +25,7 @@ public class BoardSerivceTest {
 	@Autowired
 	private BoardService service;
 	
-
+	@Test
 	public void writeTest() {
 		Board dto = new Board();
 		dto.setBtitle("테스트제목");
@@ -29,7 +34,12 @@ public class BoardSerivceTest {
 		dto.setBip("1234");
 		dto.setBfile("이미지.jpg");
 		
+		MockMultipartFile file 
+		= new MockMultipartFile("file","001.jpg",MediaType.TEXT_PLAIN_VALUE,"001.jpg".getBytes());
 		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		
+		service.writePost(dto, file, request);
 	}
 	
 	
@@ -38,6 +48,7 @@ public class BoardSerivceTest {
 		dto.setBno(2);
 		log.info(service.getPost(dto).toString());
 	}
+	
 	
 	public void getListTest() {
 		BoardSearch dto = new BoardSearch();
@@ -70,7 +81,7 @@ public class BoardSerivceTest {
 //		service.replyPost(dto);
 	}
 	
-	@Test
+	
 	public void deleteTest() {
 		Board dto = new Board();
 		dto.setBno(10);
